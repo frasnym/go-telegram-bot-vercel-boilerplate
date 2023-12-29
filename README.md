@@ -51,7 +51,7 @@ vercel
 Follow the prompts, and your bot will be deployed on Vercel.
 
 ### Deploy to Vercel One Click
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffrasnym%2Fgo-telegram-bot-vercel-boilerplate&env=TELEGRAM_BOT_TOKEN,PORT&envDescription=TELEGRAM_BOT_TOKEN%20is%20needed%2C%20you%20can%20ask%20BotFather%20for%20it&envLink=https%3A%2F%2Ft.me%2FBotFather&project-name=go-telegram-bot-vercel-boilerplate&repository-name=go-telegram-bot-vercel-boilerplate)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffrasnym%2Fgo-telegram-bot-vercel-boilerplate&env=TELEGRAM_BOT_TOKEN&envDescription=TELEGRAM_BOT_TOKEN%20is%20needed%2C%20you%20can%20ask%20BotFather%20for%20it&envLink=https%3A%2F%2Ft.me%2FBotFather&project-name=go-telegram-bot-vercel-boilerplate&repository-name=go-telegram-bot-vercel-boilerplate)
 
 ### Disable Vercel Authentication
 From your Vercel dashboard:
