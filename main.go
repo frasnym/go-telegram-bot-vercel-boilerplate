@@ -11,7 +11,7 @@ import (
 func main() {
 	cfg := config.GetConfig()
 
-	http.HandleFunc("/", handler.IndexHandler)
+	http.HandleFunc("/init", handler.InitHandler)
 	http.HandleFunc("/webhook", handler.WebhookHandler)
 	fmt.Printf("Server is running on port %s...\n", cfg.Port)
 	http.ListenAndServe(fmt.Sprint(":", cfg.Port), nil)
