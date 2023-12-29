@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/frasnym/go-telegram-bot-vercel-boilerplate/common/ctxdata"
@@ -44,11 +45,11 @@ func LogService(ctx context.Context, name string, err error, startTime *time.Tim
 	}
 }
 
-func LogHandler(ctx context.Context, name string, err error, startTime *time.Time) {
+func LogHandler(ctx context.Context, r *http.Request, err error, startTime *time.Time) {
 	if err != nil {
-		Error(ctx, fmt.Errorf("[HANDLER] %s error: %v. %v elapsed", name, err, time.Since(*startTime)))
+		Error(ctx, fmt.Errorf("[HANDLER] %s %s error: %v. %v elapsed", r.Method, r.URL.Path, err, time.Since(*startTime)))
 	} else {
-		Info(ctx, fmt.Sprintf("[HANDLER] %s success. %v elapsed", name, time.Since(*startTime)))
+		Info(ctx, fmt.Sprintf("[HANDLER] %s %s success. %v elapsed", r.Method, r.URL.Path, time.Since(*startTime)))
 	}
 }
 
