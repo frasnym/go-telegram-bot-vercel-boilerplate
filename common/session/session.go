@@ -12,12 +12,12 @@ import (
 
 // User sessions to store interaction data
 var (
-	userSessions     = make(map[int]Session)
+	userSessions     = make(map[int64]Session)
 	userSessionMutex sync.Mutex
 )
 
 // NewSession creates a new user session with the given userID, chatID, and action.
-func NewSession(userID int, chatID int64, action string) {
+func NewSession(userID int64, chatID int64, action string) {
 	session := Session{
 		Action:    action,
 		ChatID:    chatID,
@@ -27,7 +27,7 @@ func NewSession(userID int, chatID int64, action string) {
 }
 
 // ResetTimer resets the session timer for a user's session.
-func ResetTimer(userID int) error {
+func ResetTimer(userID int64) error {
 	session, exist := getUserSession(userID)
 	if !exist {
 		return common.ErrNoSession
@@ -39,7 +39,7 @@ func ResetTimer(userID int) error {
 }
 
 // GetAction retrieves the current action for a user's session.
-func GetAction(userID int) (string, error) {
+func GetAction(userID int64) (string, error) {
 	session, exist := getUserSession(userID)
 	if !exist {
 		return "", common.ErrNoSession
@@ -49,7 +49,7 @@ func GetAction(userID int) (string, error) {
 }
 
 // GetChatID retrieves the chat ID for a user's session.
-func GetChatID(userID int) (int64, error) {
+func GetChatID(userID int64) (int64, error) {
 	session, exist := getUserSession(userID)
 	if !exist {
 		return 0, common.ErrNoSession
@@ -59,7 +59,7 @@ func GetChatID(userID int) (int64, error) {
 }
 
 // DeleteUserSession deletes a user's session when it's no longer needed.
-func DeleteUserSession(userID int) {
+func DeleteUserSession(userID int64) {
 	userSessionMutex.Lock()
 	defer userSessionMutex.Unlock()
 
@@ -67,7 +67,7 @@ func DeleteUserSession(userID int) {
 }
 
 // setUserSession sets the user's session data in a thread-safe manner.
-func setUserSession(userID int, newSession *Session) {
+func setUserSession(userID int64, newSession *Session) {
 	userSessionMutex.Lock()
 	defer func() {
 		userSessionMutex.Unlock()
@@ -79,7 +79,7 @@ func setUserSession(userID int, newSession *Session) {
 }
 
 // getUserSession retrieves the user's session data in a thread-safe manner.
-func getUserSession(userID int) (*Session, bool) {
+func getUserSession(userID int64) (*Session, bool) {
 	userSessionMutex.Lock()
 	defer userSessionMutex.Unlock()
 
@@ -88,7 +88,7 @@ func getUserSession(userID int) (*Session, bool) {
 }
 
 // IsInteractionTimedOut checks if a user's session has timed out due to inactivity.
-func IsInteractionTimedOut(userID int) bool {
+func IsInteractionTimedOut(userID int64) bool {
 	session, exist := getUserSession(userID)
 	if !exist {
 		return true

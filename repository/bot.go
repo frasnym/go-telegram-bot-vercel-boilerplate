@@ -11,7 +11,7 @@ import (
 	"github.com/frasnym/go-telegram-bot-vercel-boilerplate/common/logger"
 	"github.com/frasnym/go-telegram-bot-vercel-boilerplate/config"
 
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 // BotRepository is an interface for managing interactions with a Telegram bot.
@@ -99,13 +99,19 @@ func (s *botRepo) SetWebhook(ctx context.Context) error {
 		return common.ErrNoChanges
 	}
 
-	_, err = s.bot.SetWebhook(tgbotapi.NewWebhook(webhookURL))
+	wh, err := tgbotapi.NewWebhook(webhookURL)
 	if err != nil {
-		err = fmt.Errorf("err bot.SetWebhook: %w", err)
+		err = fmt.Errorf("err tgbotapi.NewWebhook: %w", err)
 		return err
 	}
 
-	logger.Info(ctx, fmt.Sprintf("success change webhook to: %s", webhookURL))
+	apiRes, err := s.bot.Request(wh)
+	if err != nil {
+		err = fmt.Errorf("err bot.Request: %w", err)
+		return err
+	}
+
+	logger.Info(ctx, fmt.Sprintf("success change webhook to: %s; %s", webhookURL, apiRes.Description))
 
 	return nil
 }

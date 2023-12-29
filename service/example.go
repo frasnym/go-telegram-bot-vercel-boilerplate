@@ -13,15 +13,15 @@ import (
 
 // ExampleService is an interface for managing Example-related actions.
 type ExampleService interface {
-	Request(ctx context.Context, userID int, chatID int64) error
-	Processor(ctx context.Context, userID int, input string) error
+	Request(ctx context.Context, userID int64, chatID int64) error
+	Processor(ctx context.Context, userID int64, input string) error
 }
 
 type exampleSvc struct {
 	botRepo repository.BotRepository
 }
 
-func (s *exampleSvc) Request(ctx context.Context, userID int, chatID int64) error {
+func (s *exampleSvc) Request(ctx context.Context, userID int64, chatID int64) error {
 	var err error
 	now := time.Now()
 	defer func() {
@@ -42,7 +42,7 @@ func (s *exampleSvc) Request(ctx context.Context, userID int, chatID int64) erro
 	return nil
 }
 
-func (s *exampleSvc) Processor(ctx context.Context, userID int, input string) error {
+func (s *exampleSvc) Processor(ctx context.Context, userID int64, input string) error {
 	var err error
 	now := time.Now()
 	defer func() {
@@ -81,7 +81,7 @@ func NewExampleService(botRepo repository.BotRepository) ExampleService {
 	return &exampleSvc{botRepo}
 }
 
-func (s *exampleSvc) notifyError(ctx context.Context, userID int, msg string) error {
+func (s *exampleSvc) notifyError(ctx context.Context, userID int64, msg string) error {
 	var err error
 	now := time.Now()
 	defer func() {
