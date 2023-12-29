@@ -105,6 +105,8 @@ func (s *botRepo) SetWebhook(ctx context.Context) error {
 		return err
 	}
 
+	logger.Info(ctx, fmt.Sprintf("success change webhook to: %s", webhookURL))
+
 	return nil
 }
 
